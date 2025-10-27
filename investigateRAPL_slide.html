@@ -1,0 +1,387 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <link rel="icon" type="image/png" href="assets/favicon.png">
+
+  <meta charset="utf-8" />
+  <title>My Reveal.js Presentation</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0" />
+
+  <!-- Core Reveal.js Styles -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/reveal.js@5/dist/reveal.css" />
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/reveal.js@5/dist/theme/black.css" id="theme" />
+
+  <!-- Optional: Code Highlighting -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.5.1/styles/monokai-sublime.min.css">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.5.1/highlight.min.js"></script>
+  <script>hljs.highlightAll();</script>
+
+  <style>
+    :root {
+      --accent: #7bdcb5;
+    }
+
+    body, .reveal {
+      font-family: system-ui, "Helvetica Neue", sans-serif;
+    }
+
+    .lead { font-size: 1.15em; line-height: 1.4; }
+    .spacious li { margin: 0.4em 0; }
+    .muted { opacity: 0.7; }
+
+    .twocol {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 2rem;
+      align-items: start;
+    }
+
+    .centered { text-align: center; }
+
+    .logo {
+      position: absolute;
+      top: 30px;
+      right: 30px;
+    }
+
+    .logo img {
+      width: 80px;
+      height: auto;
+    }
+
+    .callout {
+      border-left: 4px solid var(--accent);
+      padding-left: 1rem;
+      margin-top: 1rem;
+    }
+
+    .tiny { font-size: 0.7em; }
+
+
+    .reveal h1.small-title {
+      font-size: 1.8em;
+      line-height: 1.1;
+    }
+    .reveal h2.small-title {
+      font-size: 1.2em;
+      line-height: 1.1;
+    }
+  </style>
+</head>
+
+<body>
+  <div class="logo"><img src="assets/ERI_vertical_RGB.svg" alt="Logo"></div>
+
+  <div class="reveal">
+    <div class="slides">
+
+      <!-- 1 -->
+      <section data-background-color="#ffffff">
+        <h1 class="small-title">Investigating Energy Telemetry Accuracy of Intel RAPL</h1>
+        <h3 class="muted">Can we do better?</h3>
+        <p class="tiny">Andy Huo | Ericsson/Polytechnique Montreal | Oct 27 2025</p>
+        <aside class="notes">Opening remarks or narrative cue.</aside>
+      </section>
+
+      <!-- 2 -->
+      <section data-background-color="#ffffff">
+        <section data-background-color="#ffffff">
+          <h2>Why improve code energy efficiency</h2>
+          It's not just about the trees...
+          <ul class="lead spacious">
+              <li> Data centers: Reduce cost
+              <li> Mobile / Edge computing: Improve battery and service life </li>
+              <li> Satellites (Solar power): Increase productivity </li> 
+          </ul>
+          <aside class="notes">Speaker note: emphasize key takeaway.</aside>
+        </section>
+        <section data-background-color="#ffffff">
+          <h2 class="small-title">Cooling a data center:</h2>
+          <div style="display: flex; align-items: flex-start; justify-content: center; gap: 2rem; max-width: 90%; margin: 0 auto;">
+            
+            <img src="assets/datacenter cooling.jpg" 
+                alt="Example image.png" 
+                style="width: 45%; height: auto; border-radius: 8px;">
+            
+            <div style="flex: 1; text-align: left; font-size: 0.8em;">
+              <ul>
+                <li class="tiny muted">Almost all energy used during computation is converted to heat. </li>
+                <li class="tiny muted">Thermal management systems are responsible for up to 40% of all energy consumed in a data center. </li>
+                <li class="tiny muted">Reduced thermal load -> more servers doing more work in same infrastructure </li>
+              </ul>
+            </div>
+
+          </div>
+        </section>          
+        <section data-background-color="#ffffff">
+          <h2 class="small-title">Temperature and component wear and tear</h2>
+          <div style="display: flex; align-items: flex-start; justify-content: center; gap: 2rem; max-width: 90%; margin: 0 auto;">
+            
+            <img src="assets/electronic failure temp cycling.jpg" 
+                alt="assets/Example image.png.png" 
+                style="width: 45%; height: auto; border-radius: 8px;">
+            
+            <div style="flex: 1; text-align: left; font-size: 0.8em;">
+              <ul class="tiny muted">
+                <li>As a rule of thumb, a 10&nbsp;&deg;C increase reduces component life by half.</li>
+                <li>A 5&nbsp;&deg;C rise above 40&nbsp;&deg;C increases hard-disk failure risk by ~30%.</li>
+                <li>Improving power/thermal efficiency: keeps components within optimal temperature longer.</li>
+                <li>Components live longer.</li>
+                <li>Less thermal throttling</li>
+              </ul>
+            </div>
+          </div>
+        </section>
+        <section data-background-color="#ffffff">
+          <h2 class="small-title">Edge computing and Satellites</h2>
+          <div style="display: flex; align-items: flex-start; justify-content: center; gap: 2rem; max-width: 90%; margin: 0 auto;">
+            
+            <img src="assets/directcell.webp" 
+                alt="assets/Example image.png" 
+                style="width: 45%; height: auto; border-radius: 8px;">
+            
+            <div style="flex: 1; text-align: left; font-size: 0.8em;">
+              <ul class="tiny muted">
+                <li>Improve battery life</li>
+                <li>More work done per watt in power constrained edge computing and satellites</li>
+                <li>Improve service life for critical components</li>
+              </ul>
+            </div>
+          </div>
+        </section>                 
+      </section>
+
+      <!-- 3 -->
+
+
+      <!--
+      Feedback from ppt 
+      MORE detail on Specific operational improvements such as WHY does more heat matter
+      Why is thermal throttling important to manage 
+      HOW HEAT CAUSE COMPONENT WEAR AND TEAR
+      Higher server density and using less space / water???
+      not sure 
+      -->>
+
+      <section data-background-color="#ffffff">
+        <section data-background-color="#ffffff">
+          <h2>What is RAPL (Running Average Power Limit)</h2>
+          <ul>
+            <li>Energy prediction models that estimates CPU and DRAM power consumption</li>
+            <li> Possible factors: 
+              <ul>
+                <li>Instruction counts</li>
+                <li>On-chip sensors</li>
+                <li>Telemetry from motherboard (SVID and IMON interface)</li>
+              </ul>
+            </li>
+            <li>* inferred data source, specific details are undisclosed</li>
+          </ul>
+          <aside class="notes">Speaker note: emphasize key takeaway.</aside>
+        </section>  
+        <section data-background-color="#ffffff">
+          <h2>Why is this a problem</h2>
+
+          <div class="content-flex">
+            <!-- 📸 Image box -->
+            <div class="image-box">
+              <img src="assets/powerapi.png" style="width: 20%; height: auto; border-radius: 8px;">
+              <img src="assets/scaphandre.cleaned.png" style="width: 20%; height: auto; border-radius: 8px;">
+              <img src="assets/codecarbon.PNG" style="width: 20%; height: auto; border-radius: 8px;">
+            </div>
+
+            <!-- 📝 Text box -->
+            <div class="text-box">
+              <ul>
+                <li>More than half the energy-awareness tools use RAPL (single point of failure)</li>
+                <li>Data source and methodology is undisclosed for newer CPU models</li>
+                <li>Known inconsistencies in prior research</li>
+              </ul>
+            </div>
+          </div>
+          <aside class="notes">Speaker note: Maybe even more than 60-70%</aside>
+        </section>
+      </section>
+      <!-- 
+      The 
+      -->>
+
+      <!-- <section data-background-color="#ffffff">
+        <h2>What do we know about RAPL</h2>
+        <ul>
+          <li>Regression model to minimize underestimations (Rotem et al 2012)</li>
+          <li>First released with Sandybridge (gen 2)</li>
+          <li>Improved with Haswell (gen 4) FIVR telemetry</li>
+          <li></li>
+        </ul>
+        <aside class="notes">Speaker note: emphasize key takeaway.</aside>
+      </section> -->
+
+      <section data-background-color="#ffffff">
+        <section data-background-color="#ffffff">
+          <h2>Method of investigation</h2>
+          <ul>
+            <li> Precision sensors for obtaining ground truth for energy consumption</li>
+            <li> Implementation:
+              <ul>
+                <li>Sensors intercept power lanes from power supply to components</li>
+                <li>Sensors measure voltage and current</li>
+                <li>Sensors Relay data to tracing apps (eg. TraceCompass)</li>
+              </ul>
+            </li>
+          </ul>
+          <aside class="notes">Speaker note: emphasize key takeaway.</aside>
+        </section> 
+        <section data-background-color="#ffffff">
+          <h2 class="h2.small-title">Measurement tool proposal</h2>
+          <div style="display: flex; align-items: center; justify-content: center; gap: 2rem;">
+            <img src="assets/flow2.png" alt="assets/Example image.png" style="width: 45%; height: auto; border-radius: 8px;">
+            <p class="tiny muted" style="width: 20%; text-align: left;">
+              <ul>
+                <li class="tiny muted">Sensor intercepting power lanes</li>
+                <li class="tiny muted">Microcontroller (data collection)</li>
+                <li class="tiny muted">Data processed externally: minimal overhead</li>
+              </ul>
+            </p>
+          </div>
+        </section>
+        <section data-background-color="#ffffff">
+          <h2 class="h2.small-title">Measurement tool implementation</h2>
+          <div style="display: flex; align-items: center; justify-content: center; gap: 2rem;">
+            <img src="assets/labeled.png" alt="assets/Example image.png" style="width: 45%; height: auto; border-radius: 8px;">
+            <p class="tiny muted" style="width: 20%; text-align: left;">
+              <ul>
+                <li class="tiny muted">Industry standard precision sensors</li>
+                <li class="tiny muted">High speed microcontroller</li>
+                <li class="tiny muted">Trace compass integration</li>
+              </ul>
+            </p>
+          </div>
+        </section>
+        <section data-background-color="#ffffff">
+          <h2 class="h2.small-title">Integration with trace compass</h2>
+          <div style="display: flex; align-items: center; justify-content: center; gap: 2rem;">
+            <img src="assets/tracointegration.png" alt="assets/Example image.png" style="width: 45%; height: auto; border-radius: 8px;">
+            <p class="tiny muted" style="width: 20%; text-align: left;">
+              <ul>
+                <li class="tiny muted">Trace Compass integration with custom plugin</li>
+                <li class="tiny muted">Sensor tracing: CTF</li>
+                <li class="tiny muted">RAPL output: UST</li>
+                <li>Perform data analysis using TMLL to discover anomalies</li>
+              </ul>
+            </p>
+          </div>
+        </section>
+      </section>     
+
+      <section data-background-color="#ffffff">
+        <h2>Preliminary Results</h2>
+        <ul>
+          <li> Accuracy:
+            <ul>
+              <li>RAPL demonstrates high degree of noise compare to Sensors</li>
+              <li>(Coefficient of variation 0.25 vs 0.08)</li>
+              <li>Poor correlation between Intel RAPL and Sensors</li>
+              <li>(Spearman's rho = 0.2258)</li>
+            </ul>
+          </li>
+        </ul>
+        <aside class="notes">Speaker note: emphasize key takeaway.</aside>
+      </section>   
+
+      <!-- 🏁 CLOSING SLIDE -->
+      <section data-background-color="#ffffff">
+        <h2>Questions?</h2>
+        <img src="assets/Example image.png" alt="assets/Example image.png" style="width: 30%; height: auto; border-radius: 8px;">
+        <p class="centered lead">Thank you for listening!</p>
+        <p class="tiny">
+          Follow-up: andy.huo@ericsson.com 
+                     hhuo2000@gmail.com
+        </a></p>
+      </section>
+
+      <!-- 🟩 TEMPLATE 1: TITLE SLIDE -->
+      <!-- <section data-background-color="#ffffff">
+        <h1>Presentation Title</h1>
+        <h3 class="muted">Subtitle or Event</h3>
+        <p class="tiny">Your Name | Organization | Date</p>
+        <aside class="notes">Opening remarks or narrative cue.</aside>
+      </section> -->
+
+      <!-- 🟦 TEMPLATE 2: TITLE + BODY TEXT -->
+      <!-- <section data-background-color="#ffffff">
+        <h2>Section Title</h2>
+        <ul class="lead spacious">
+          <li>Key point or finding</li>
+          <li>Another insight</li>
+          <li>Supporting detail or takeaway</li>
+        </ul>
+        <aside class="notes">Speaker note: emphasize key takeaway.</aside>
+      </section> -->
+
+      <!-- 🟨 TEMPLATE 3: TITLE + IMAGE -->
+      <!-- <section data-background-color="#ffffff">
+        <h2>Visualization Example</h2>
+        <img src="assets/your-image.png" width="70%" height="auto" alt="Example image.png">
+        <p class="tiny muted">Caption: Describe what the image shows.</p>
+      </section> -->
+
+      <!-- 🟧 TEMPLATE 4: TWO-COLUMN COMPARISON -->
+      <!-- <section data-background-color="#ffffff">
+        <h2>Comparison or Architecture</h2>
+        <div class="twocol">
+          <div>
+            <h3>Left Column</h3>
+            <ul>
+              <li>Feature A</li>
+              <li>Feature B</li>
+            </ul>
+          </div>
+          <div>
+            <h3>Right Column</h3>
+            <ul>
+              <li>Benefit X</li>
+              <li>Benefit Y</li>
+            </ul>
+          </div>
+        </div>
+      </section> -->
+
+      <!-- 🧭 VERTICAL SLIDE EXAMPLE -->
+      <!-- <section data-background-color="#ffffff">
+        <section data-background-color="#ffffff"><h2>Vertical Stack Overview</h2><p>Press ↓ for more details</p></section>
+        <section data-background-color="#ffffff"><h2>Detail Slide</h2><p>Part of same topic stack.</p></section>
+        <section data-background-color="#ffffff"><h2>Detail Slide2</h2><p>Part of same topic stack.</p></section>
+      </section> -->
+
+      <!-- 💻 CODE EXAMPLE -->
+      <!-- <section data-background-color="#ffffff">
+        <h2>Code Example</h2>
+        <pre><code class="language-python">
+def trace_event():
+    print("Tracing start...")
+        </code></pre>
+      </section> -->
+
+      <!-- 🏁 CLOSING SLIDE -->
+      <!-- <section data-background-color="#ffffff">
+        <h2>Questions?</h2>
+        <p class="centered lead">Thank you for listening!</p>
+        <p class="tiny">Follow-up: <a href="https://tracecompass.org">tracecompass.org</a></p>
+      </section>
+
+    </div>
+  </div> -->
+
+  <!-- <script src="https://cdn.jsdelivr.net/npm/reveal.js@5/dist/reveal.js"></script>
+  <script>
+    Reveal.initialize({
+      hash: true,
+      slideNumber: true,
+      transition: 'slide',   // Options: none/fade/slide/convex/concave/zoom
+      controlsTutorial: false
+    });
+  </script> -->
+  
+</body>
+</html>
